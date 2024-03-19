@@ -75,12 +75,13 @@ resource "aws_lb_target_group_attachment" "test" {
 }
 
 resource "aws_lb_listener_rule" "redirect_site" {
-  listener_arn = aws_alb_listener.service_http.arn
+  listener_arn = aws_alb_listener.service_https.arn
 
   action {
     type = "redirect"
 
     redirect {
+      host        = "test1.chainomi.link"  
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_301"
