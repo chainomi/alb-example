@@ -25,14 +25,13 @@ resource "aws_instance" "test" {
  subnet_id                   = "${element(module.vpc.private_subnets, 0)}"
  user_data = <<EOF
 #!/bin/bash
+sudo su
+# install httpd (Linux 2 version)
 yum update -y
-yum install -y httpd
-systemctl start httpd
-systemctl enable httd
-usermod -a -G apache ec2-user
-chown -R ec2-user:apache /var/www
-chmod 2775 /var/www
-echo "<h1>Hello World</h1>" > /var/www/html/index.html
+yum install -y httpd.x86_64
+systemctl start httpd.service
+systemctl enable httpd.service
+echo "Hello World from $(hostname -f)" > /var/www/html/index.html
 EOF
 
 }
